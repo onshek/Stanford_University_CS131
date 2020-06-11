@@ -1,0 +1,5 @@
+#########################################
+# Editor temporary/working/backup files #
+.ipynb_checkpoints
+.vscode/
+__pycache__

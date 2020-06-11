@@ -1,1 +1,1 @@
-# Stanford_University_CS131
+# Stanford_University CS131: Computer Vision Foundations and Applications (Fall 2019)
