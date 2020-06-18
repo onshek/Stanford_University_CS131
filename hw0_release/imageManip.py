@@ -140,7 +140,13 @@ def hsv_decomposition(image, channel='H'):
     out = None
 
     ### YOUR CODE HERE
-    pass
+    out = hsv.copy()
+    channel_dict = {
+        "H": 0,
+        "S": 1,
+        "V": 2
+    }
+    out = hsv[:, :, channel_dict[channel]]
     ### END YOUR CODE
 
     return out
@@ -166,7 +172,10 @@ def mix_images(image1, image2, channel1, channel2):
 
     out = None
     ### YOUR CODE HERE
-    pass
+    left = rgb_exclusion(image1, channel1)
+    right = rgb_exclusion(image2, channel2)
+    half_width = image1.shape[1] // 2
+    out = np.concatenate((left[:, :half_width, :], right[:, half_width:, :]), axis=1)
     ### END YOUR CODE
 
     return out
@@ -195,7 +204,19 @@ def mix_quadrants(image):
     out = None
 
     ### YOUR CODE HERE
-    pass
+    half_height = image.shape[0] // 2
+    half_width = image.shape[1] // 2
+    top_left = image[:half_height, :half_width, :]
+    top_right = image[:half_height, half_width:, :]
+    bottom_left = image[half_height:, :half_width, :]
+    bottom_right = image[half_height:, half_width:, :]
+    top_left = rgb_exclusion(top_left, "R")
+    top_right = dim_image(top_right)
+    bottom_left = np.power(bottom_left, 0.5)
+    bottom_right = rgb_exclusion(bottom_right, "R")
+    out1 = np.concatenate((top_left, top_right), axis=1)
+    out2 = np.concatenate((bottom_left, bottom_right), axis=1)
+    out = np.concatenate((out1, out2), axis=0)
     ### END YOUR CODE
 
     return out
